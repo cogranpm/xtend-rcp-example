@@ -1,6 +1,6 @@
 package com.parinherm.parts.xtend;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import javax.annotation.PostConstruct;
@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 
 @SuppressWarnings("all")
 public class XSamplePart {
@@ -73,6 +74,6 @@ public class XSamplePart {
   }
   
   public List<String> createInitialDataModel() {
-    return Arrays.<String>asList("Sample item 1", "Sample item 2", "Sample item 3", "Sample item 4", "Sample item 5");
+    return Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("Sample item 1", "Sample item 2", "Sample item 3", "Sample item 4", "Sample item 5"));
   }
 }

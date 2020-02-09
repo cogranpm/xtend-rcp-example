@@ -10,14 +10,12 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart
 import org.eclipse.jface.viewers.ArrayContentProvider
 import org.eclipse.jface.viewers.TableViewer
 import org.eclipse.swt.SWT
-import org.eclipse.swt.events.SelectionAdapter
-import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Text
-import org.eclipse.swt.events.SelectionListener
+
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter
 
 class XSamplePart {
@@ -32,39 +30,43 @@ class XSamplePart {
 
 	@PostConstruct
 	def void createComposite(Composite parent) {
-		parent.setLayout(new GridLayout(1, false));
+		parent.setLayout(new GridLayout(1, false))
 
 		btnTest = new Button(parent, SWT.PUSH)
 		btnTest.text = "Click"
+
+		//lambda style event handler, thanks to static widgetSelectedAdapter method
 		btnTest.addSelectionListener(widgetSelectedAdapter([ e | 
 			txtInput.text = "lambda brah"
 		]))
 		
-		txtInput = new Text(parent, SWT.BORDER);
-		txtInput.setMessage("Hey, it's working")
-		txtInput.addModifyListener([e | part.setDirty(true)]);
-		txtInput.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		txtInput = new Text(parent, SWT.BORDER)
+		txtInput.message = "Hey, it's working"
+		//lamba for this is cool
+		txtInput.addModifyListener([e | part.setDirty(true)])
+		txtInput.layoutData = new GridData(GridData.FILL_HORIZONTAL)
 
-		tableViewer = new TableViewer(parent);
-
-		tableViewer.setContentProvider(ArrayContentProvider.getInstance());
-		tableViewer.setInput(createInitialDataModel());
-		tableViewer.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
+		tableViewer = new TableViewer(parent)
+		tableViewer.contentProvider = ArrayContentProvider.getInstance()
+		tableViewer.input = createInitialDataModel()
+		tableViewer.table.layoutData = new GridData(GridData.FILL_BOTH)
 	}
 	
 
 	@Focus
 	def void setFocus() {
-		tableViewer.getTable().setFocus();
+		tableViewer.table.setFocus()
 	}
 
 	@Persist
 	def void save() {
-		part.setDirty(false);
+		part.dirty = false
 	}
 	
 	def List<String> createInitialDataModel() {
-		return Arrays.asList("Sample item 1", "Sample item 2", "Sample item 3", "Sample item 4", "Sample item 5");
+		//using a list literal
+		return #["Sample item 1", "Sample item 2", "Sample item 3", "Sample item 4", "Sample item 5"]
+
 	}
 	
 }

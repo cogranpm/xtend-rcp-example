@@ -25,7 +25,7 @@
   </children>
   <handlers xmi:id="_6wlLfcgZEeSyMNYR5xypkQ" elementId="com.parinherm.rcp.handler.quitCommand" contributionURI="bundleclass://rcp-kernai-test/com.parinherm.rcp.handlers.QuitHandler" command="_6wlLfMgZEeSyMNYR5xypkQ"/>
   <handlers xmi:id="_6wlLgcgZEeSyMNYR5xypkQ" elementId="com.parinherm.rcp.handler.openCommand" contributionURI="bundleclass://rcp-kernai-test/com.parinherm.rcp.handlers.OpenHandler" command="_6wlLgMgZEeSyMNYR5xypkQ"/>
-  <handlers xmi:id="_6wlLhMgZEeSyMNYR5xypkQ" elementId="com.parinherm.rcp.handler.saveCommand" contributionURI="bundleclass://rcp-kernai-test/com.parinherm.rcp.handlers.SaveHandler" command="_6wlLg8gZEeSyMNYR5xypkQ"/>
+  <handlers xmi:id="_6wlLhMgZEeSyMNYR5xypkQ" elementId="com.parinherm.rcp.handler.saveCommand" contributionURI="bundleclass://rcp-kernai-test/com.parinherm.handlers.xtend.SaveHandler" command="_6wlLg8gZEeSyMNYR5xypkQ"/>
   <handlers xmi:id="_6wlLh8gZEeSyMNYR5xypkQ" elementId="com.parinherm.rcp.handler.aboutCommand" contributionURI="bundleclass://rcp-kernai-test/com.parinherm.rcp.handlers.AboutHandler" command="_6wlLhsgZEeSyMNYR5xypkQ"/>
   <bindingTables xmi:id="_6wlLfsgZEeSyMNYR5xypkQ" elementId="rcp-kernai-test.bindingtable" bindingContext="_6wlLecgZEeSyMNYR5xypkQ">
     <bindings xmi:id="_6wlLf8gZEeSyMNYR5xypkQ" elementId="rcp-kernai-test.keybinding.m1q" keySequence="M1+Q" command="_6wlLfMgZEeSyMNYR5xypkQ"/>
