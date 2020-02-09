@@ -1,0 +1,5 @@
+rcp example using xtend
+make sure that the xtend-gen folder is included in the source entry in build.properties: ie
+source.. = src/,\
+		xtend-gen/
+output.. = bin/

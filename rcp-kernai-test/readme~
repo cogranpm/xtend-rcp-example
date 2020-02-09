@@ -1,0 +1,5 @@
+rcp example using xtend
+to get the exported product to work
+need to delete any rcp-kernai-test_... plugin jar from exported plugins directory
+then need to do export from the META-INF directory instead
+make sure the use compiled classes in workspace option is selected
