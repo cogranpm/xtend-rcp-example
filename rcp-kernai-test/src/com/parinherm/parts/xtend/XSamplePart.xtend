@@ -17,6 +17,8 @@ import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Text
+import org.eclipse.swt.events.SelectionListener
+import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter
 
 class XSamplePart {
 
@@ -34,14 +36,10 @@ class XSamplePart {
 
 		btnTest = new Button(parent, SWT.PUSH)
 		btnTest.text = "Click"
-		btnTest.addSelectionListener(new SelectionAdapter {
-			
-			override widgetSelected(SelectionEvent e) {
-				txtInput.text = "nailed it bra"
-			}
-			
-		})
-
+		btnTest.addSelectionListener(widgetSelectedAdapter([ e | 
+			txtInput.text = "lambda brah"
+		]))
+		
 		txtInput = new Text(parent, SWT.BORDER);
 		txtInput.setMessage("Hey, it's working")
 		txtInput.addModifyListener([e | part.setDirty(true)]);
@@ -53,6 +51,7 @@ class XSamplePart {
 		tableViewer.setInput(createInitialDataModel());
 		tableViewer.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
 	}
+	
 
 	@Focus
 	def void setFocus() {

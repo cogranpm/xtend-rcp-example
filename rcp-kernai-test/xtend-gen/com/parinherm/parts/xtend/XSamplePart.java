@@ -2,6 +2,7 @@ package com.parinherm.parts.xtend;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.eclipse.e4.ui.di.Focus;
@@ -12,8 +13,8 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -39,19 +40,17 @@ public class XSamplePart {
     Button _button = new Button(parent, SWT.PUSH);
     this.btnTest = _button;
     this.btnTest.setText("Click");
-    this.btnTest.addSelectionListener(new SelectionAdapter() {
-      @Override
-      public void widgetSelected(final SelectionEvent e) {
-        XSamplePart.this.txtInput.setText("nailed it bra");
-      }
-    });
+    final Consumer<SelectionEvent> _function = (SelectionEvent e) -> {
+      this.txtInput.setText("lambda brah");
+    };
+    this.btnTest.addSelectionListener(SelectionListener.widgetSelectedAdapter(_function));
     Text _text = new Text(parent, SWT.BORDER);
     this.txtInput = _text;
     this.txtInput.setMessage("Hey, it\'s working");
-    final ModifyListener _function = (ModifyEvent e) -> {
+    final ModifyListener _function_1 = (ModifyEvent e) -> {
       this.part.setDirty(true);
     };
-    this.txtInput.addModifyListener(_function);
+    this.txtInput.addModifyListener(_function_1);
     GridData _gridData = new GridData(GridData.FILL_HORIZONTAL);
     this.txtInput.setLayoutData(_gridData);
     TableViewer _tableViewer = new TableViewer(parent);
