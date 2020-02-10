@@ -23,6 +23,8 @@ class Activator implements BundleActivator {
 		x.doConfigure(logbackConfigFileUrl.openStream())
 		* 
 		*/
+		 
+		
 	}
 	
 	override stop(BundleContext context) throws Exception {
