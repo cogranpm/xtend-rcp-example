@@ -10,7 +10,7 @@
             name="rcp-kernai-test">
          <property
                name="lifeCycleURI"
-               value="bundleclass://rcp-kernai-test/com.parinherm.rcp.E4LifeCycle">
+               value="bundleclass://rcp-kernai-test/com.parinherm.rcp.xtend.E4LifeCycle">
          </property>
          <property
                name="applicationCSS"

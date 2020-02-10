@@ -18,6 +18,13 @@ Require-Bundle: javax.inject;bundle-version="0.0.0",
  org.eclipse.xtend.lib,
  org.eclipse.xtend.lib.macro,
  javax.annotation;bundle-version="1.2.0",
- Xtend-Annotations;bundle-version="1.0.0"
+ Xtend-Annotations;bundle-version="1.0.0",
+ ch.qos.logback.classic;bundle-version="1.0.7",
+ ch.qos.logback.core;bundle-version="1.0.7"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: rcp-kernai-test
+Import-Package: org.eclipse.e4.core.services.log,
+ org.slf4j;version="1.7.2",
+ org.slf4j.spi;version="1.7.2"
+Bundle-Activator: com.parinherm.rcp.xtend.Activator
+Bundle-ActivationPolicy: lazy
