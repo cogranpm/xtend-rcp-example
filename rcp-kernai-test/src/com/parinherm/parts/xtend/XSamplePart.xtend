@@ -17,6 +17,8 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Text
 
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter
+
+
 import com.parinherm.entity.xtend.ObservableBean
 
 class XSamplePart {
@@ -31,6 +33,40 @@ class XSamplePart {
 
 	@PostConstruct
 	def void createComposite(Composite parent) {
+		
+		//testing out some xtend stuff
+		//define a function object 
+		//first line defines a function object which can be curried
+		val (int, int)=>int makeadder = [a, b | a + b]
+		val adder2 = makeadder.curry(2)
+		println(adder2.apply(2))
+		
+		//ObservableBean is a class in entity package in this project
+		//shows how to do a simple bindable entity, property notification is built in
+		new ObservableBean => [
+			// 2. add an observer 
+			addPropertyChangeListener [
+				println('''property «propertyName» changed from «oldValue» to «newValue»''')
+			]
+			
+			// 3. invoke some setters
+			firstName = "Max"
+			lastName = "Mustermann"
+			
+			firstName = "John"
+			lastName = "Doe"
+		]
+		
+		val person = new ObservableBean => [
+			firstName = "paul"
+			lastName = "mustertom"
+		]
+		
+		//template strings, to get the guillements just type the completion keys M - /
+		val tmpstring = '''
+		Well Hello there person of name: «person.firstName» «person.lastName»
+		'''
+		println(tmpstring)
 		parent.setLayout(new GridLayout(1, false))
 
 		btnTest = new Button(parent, SWT.PUSH)
@@ -49,7 +85,15 @@ class XSamplePart {
 
 		tableViewer = new TableViewer(parent)
 		tableViewer.contentProvider = ArrayContentProvider.getInstance()
-		tableViewer.input = createInitialDataModel()
+		val data = createInitialDataModel()
+		//map is a library function in xtend that provides an extension to list
+		val udata = data.map[ String item | item.toUpperCase]
+		//functional style
+		println(udata.head)
+		println(udata.tail)
+		println(udata.empty)
+		val sortedudata = udata.sort
+		tableViewer.input = sortedudata
 		tableViewer.table.layoutData = new GridData(GridData.FILL_BOTH)
 	}
 	
@@ -62,22 +106,7 @@ class XSamplePart {
 	@Persist
 	def void save() {
 		
-		//lets try the observable now
 		
-		new ObservableBean => [
-			
-			// 2. add an observer 
-			addPropertyChangeListener [
-				println('''property «propertyName» changed from «oldValue» to «newValue»''')
-			]
-			
-			// 3. invoke some setters
-			firstName = "Max"
-			lastName = "Mustermann"
-			
-			firstName = "John"
-			lastName = "Doe"
-		]
 		
 		
 		part.dirty = false
@@ -85,8 +114,11 @@ class XSamplePart {
 	
 	def List<String> createInitialDataModel() {
 		//using a list literal
-		return #["Sample item 1", "Sample item 2", "Sample item 3", "Sample item 4", "Sample item 5"]
+		return #["hawthorn", "eagles", "port power", "adelaide crows", "dockers"]
 
 	}
+	
+	
+	
 	
 }
