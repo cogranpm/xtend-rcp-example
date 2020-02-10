@@ -1,5 +1,8 @@
 rcp example using xtend
 make sure that the xtend-gen folder is included in the source entry in build.properties: ie
 source.. = src/,\
-		xtend-gen/
+		 xtend-gen/
 output.. = bin/
+
+has source dependency on the Xtend-Annotations project in this workspace
+it has all custom xtend annotations that are handy, like observable
