@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Text
 
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter
+import com.parinherm.entity.xtend.ObservableBean
 
 class XSamplePart {
 
@@ -60,6 +61,25 @@ class XSamplePart {
 
 	@Persist
 	def void save() {
+		
+		//lets try the observable now
+		
+		new ObservableBean => [
+			
+			// 2. add an observer 
+			addPropertyChangeListener [
+				println('''property «propertyName» changed from «oldValue» to «newValue»''')
+			]
+			
+			// 3. invoke some setters
+			firstName = "Max"
+			lastName = "Mustermann"
+			
+			firstName = "John"
+			lastName = "Doe"
+		]
+		
+		
 		part.dirty = false
 	}
 	

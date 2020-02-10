@@ -1,5 +1,8 @@
 package com.parinherm.parts.xtend;
 
+import com.parinherm.entity.xtend.ObservableBean;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
@@ -21,7 +24,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.InputOutput;
+import org.eclipse.xtext.xbase.lib.ObjectExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class XSamplePart {
@@ -70,6 +77,28 @@ public class XSamplePart {
   
   @Persist
   public void save() {
+    ObservableBean _observableBean = new ObservableBean();
+    final Procedure1<ObservableBean> _function = (ObservableBean it) -> {
+      final PropertyChangeListener _function_1 = (PropertyChangeEvent it_1) -> {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("property ");
+        String _propertyName = it_1.getPropertyName();
+        _builder.append(_propertyName);
+        _builder.append(" changed from ");
+        Object _oldValue = it_1.getOldValue();
+        _builder.append(_oldValue);
+        _builder.append(" to ");
+        Object _newValue = it_1.getNewValue();
+        _builder.append(_newValue);
+        InputOutput.<String>println(_builder.toString());
+      };
+      it.addPropertyChangeListener(_function_1);
+      it.setFirstName("Max");
+      it.setLastName("Mustermann");
+      it.setFirstName("John");
+      it.setLastName("Doe");
+    };
+    ObjectExtensions.<ObservableBean>operator_doubleArrow(_observableBean, _function);
     this.part.setDirty(false);
   }
   

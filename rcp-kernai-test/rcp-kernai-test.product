@@ -28,6 +28,7 @@
    </vm>
 
    <plugins>
+      <plugin id="Xtend-Annotations"/>
       <plugin id="com.google.guava"/>
       <plugin id="com.ibm.icu"/>
       <plugin id="javax.annotation"/>
