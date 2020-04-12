@@ -9,3 +9,5 @@ bin
 .java_trace/
 /.xtendbin
 .xtendbin/
+*.xtendbin
+*.java._trace
