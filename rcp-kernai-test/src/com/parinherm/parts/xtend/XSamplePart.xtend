@@ -33,7 +33,7 @@ class XSamplePart {
 
 	@PostConstruct
 	def void createComposite(Composite parent) {
-		
+ 		
 		//testing out some xtend stuff
 		//define a function object 
 		//first line defines a function object which can be curried

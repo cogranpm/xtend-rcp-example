@@ -4,6 +4,7 @@
     <children xsi:type="basic:PartSashContainer" xmi:id="_6wlLksgZEeSyMNYR5xypkQ" elementId="rcp-kernai-test.partsashcontainer.sample">
       <children xsi:type="basic:PartStack" xmi:id="_6wlLk8gZEeSyMNYR5xypkQ" elementId="rcp-kernai-test.partstack.sample">
         <children xsi:type="basic:Part" xmi:id="_6wlLlMgZEeSyMNYR5xypkQ" elementId="rcp-kernai-test.part.sample" contributionURI="bundleclass://rcp-kernai-test/com.parinherm.parts.xtend.XSamplePart" label="Sample Part" iconURI="platform:/plugin/rcp-kernai-test/icons/home.png"/>
+        <children xsi:type="basic:Part" xmi:id="_zthAYH0XEeqtFLwKluyPgg" elementId="rcp-kernai-test.part.jfacetest" contributionURI="bundleclass://rcp-kernai-test/com.parinherm.parts.xtend.JFaceTest" label="JFace Test"/>
       </children>
     </children>
     <mainMenu xmi:id="_6wlLicgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.main.menu">
