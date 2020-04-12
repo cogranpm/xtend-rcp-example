@@ -82,6 +82,11 @@ public class XSamplePart {
       it.setLastName("mustertom");
     };
     final ObservableBean person = ObjectExtensions.<ObservableBean>operator_doubleArrow(_observableBean_1, _function_2);
+    final PropertyChangeListener _function_3 = (PropertyChangeEvent it) -> {
+      InputOutput.<String>println("You changted the person");
+    };
+    person.addPropertyChangeListener(_function_3);
+    person.setFirstName("labradorian");
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("Well Hello there person of name: ");
     String _firstName = person.getFirstName();
@@ -97,27 +102,27 @@ public class XSamplePart {
     Button _button = new Button(parent, SWT.PUSH);
     this.btnTest = _button;
     this.btnTest.setText("Click");
-    final Consumer<SelectionEvent> _function_3 = (SelectionEvent e) -> {
+    final Consumer<SelectionEvent> _function_4 = (SelectionEvent e) -> {
       this.txtInput.setText("lambda brah");
     };
-    this.btnTest.addSelectionListener(SelectionListener.widgetSelectedAdapter(_function_3));
+    this.btnTest.addSelectionListener(SelectionListener.widgetSelectedAdapter(_function_4));
     Text _text = new Text(parent, SWT.BORDER);
     this.txtInput = _text;
     this.txtInput.setMessage("Hey, it\'s working");
-    final ModifyListener _function_4 = (ModifyEvent e) -> {
+    final ModifyListener _function_5 = (ModifyEvent e) -> {
       this.part.setDirty(true);
     };
-    this.txtInput.addModifyListener(_function_4);
+    this.txtInput.addModifyListener(_function_5);
     GridData _gridData = new GridData(GridData.FILL_HORIZONTAL);
     this.txtInput.setLayoutData(_gridData);
     TableViewer _tableViewer = new TableViewer(parent);
     this.tableViewer = _tableViewer;
     this.tableViewer.setContentProvider(ArrayContentProvider.getInstance());
     final List<String> data = this.createInitialDataModel();
-    final Function1<String, String> _function_5 = (String item) -> {
+    final Function1<String, String> _function_6 = (String item) -> {
       return item.toUpperCase();
     };
-    final List<String> udata = ListExtensions.<String, String>map(data, _function_5);
+    final List<String> udata = ListExtensions.<String, String>map(data, _function_6);
     InputOutput.<String>println(IterableExtensions.<String>head(udata));
     InputOutput.<Iterable<String>>println(IterableExtensions.<String>tail(udata));
     InputOutput.<Boolean>println(Boolean.valueOf(udata.isEmpty()));

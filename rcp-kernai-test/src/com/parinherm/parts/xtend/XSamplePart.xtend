@@ -43,6 +43,7 @@ class XSamplePart {
 		
 		//ObservableBean is a class in entity package in this project
 		//shows how to do a simple bindable entity, property notification is built in
+		// note the use of the => with operator, object on left, lambda on right
 		new ObservableBean => [
 			// 2. add an observer 
 			addPropertyChangeListener [
@@ -61,6 +62,9 @@ class XSamplePart {
 			firstName = "paul"
 			lastName = "mustertom"
 		]
+		
+		person.addPropertyChangeListener([ println("You changted the person")])
+		person.firstName = "labradorian"
 		
 		//template strings, to get the guillements just type the completion keys M - /
 		val tmpstring = '''
