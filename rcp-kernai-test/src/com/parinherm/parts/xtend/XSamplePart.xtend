@@ -46,7 +46,7 @@ class XSamplePart {
 		new ObservableBean => [
 			// 2. add an observer 
 			addPropertyChangeListener [
-				println('''property Â«propertyNameÂ» changed from Â«oldValueÂ» to Â«newValueÂ»''')
+				println('''property «propertyName» changed from «oldValue» to «newValue»''')
 			]
 			
 			// 3. invoke some setters
@@ -64,7 +64,7 @@ class XSamplePart {
 		
 		//template strings, to get the guillements just type the completion keys M - /
 		val tmpstring = '''
-		Well Hello there person of name: Â«person.firstNameÂ» Â«person.lastNameÂ»
+		Well Hello there person of name: «person.firstName» «person.lastName»
 		'''
 		println(tmpstring)
 		parent.setLayout(new GridLayout(1, false))

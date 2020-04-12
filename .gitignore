@@ -5,3 +5,7 @@ bin
 .metadata
 ._trace/
 *_trace/
+/.java._trace
+.java_trace/
+/.xtendbin
+.xtendbin/
