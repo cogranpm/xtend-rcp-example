@@ -8,6 +8,8 @@ import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.ValidationStatusProvider;
 import org.eclipse.core.databinding.beans.typed.BeanProperties;
+import org.eclipse.core.databinding.observable.ChangeEvent;
+import org.eclipse.core.databinding.observable.IChangeListener;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.list.WritableList;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
@@ -18,12 +20,14 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.jface.databinding.swt.ISWTObservableValue;
 import org.eclipse.jface.databinding.swt.typed.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 
@@ -38,6 +42,8 @@ public class JFaceTest {
   
   private Button btnTest;
   
+  private Label lblError;
+  
   private DataBindingContext ctx = new DataBindingContext();
   
   private WritableList<Person> input;
@@ -48,10 +54,21 @@ public class JFaceTest {
   
   private Person person = new Person();
   
+  private boolean pauseDirtyListener = false;
+  
+  private IChangeListener listener = ((IChangeListener) (ChangeEvent it) -> {
+    if ((!this.pauseDirtyListener)) {
+      this.part.setDirty(true);
+    }
+  });
+  
   @PostConstruct
   public void createComposite(final Composite parent) {
     this.person.setFirstName("michael");
     this.person.setLastName("tuck");
+    Label _label = new Label(parent, SWT.BORDER);
+    this.lblError = _label;
+    this.lblError.setText("Errors:");
     Button _button = new Button(parent, SWT.PUSH);
     this.btnTest = _button;
     this.btnTest.setText("Click");
@@ -59,6 +76,7 @@ public class JFaceTest {
     this.txtFirstName = _text;
     Text _text_1 = new Text(parent, SWT.BORDER);
     this.txtLastName = _text_1;
+    GridDataFactory.fillDefaults().grab(true, false).applyTo(this.lblError);
     GridData _gridData = new GridData(GridData.FILL_HORIZONTAL);
     this.txtFirstName.setLayoutData(_gridData);
     GridData _gridData_1 = new GridData(GridData.FILL_HORIZONTAL);
@@ -82,6 +100,12 @@ public class JFaceTest {
     final ISWTObservableValue<String> lastNameOb = WidgetProperties.<Text>text(SWT.Modify).observe(this.txtLastName);
     final IObservableValue<Object> lastNameMod = BeanProperties.<Person, Object>value("lastName").<Person>observeDetail(this.value);
     final Binding lastNameBinding = this.ctx.<String, Object>bindValue(lastNameOb, lastNameMod);
+    final IObservableList<ValidationStatusProvider> ob = this.ctx.getValidationStatusProviders();
+    final Consumer<ValidationStatusProvider> _function_2 = (ValidationStatusProvider element) -> {
+      final Binding b = ((Binding) element);
+      b.getTarget().addChangeListener(this.listener);
+    };
+    ob.forEach(_function_2);
     this.value.setValue(this.person);
   }
   

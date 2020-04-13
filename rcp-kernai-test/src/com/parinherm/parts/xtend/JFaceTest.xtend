@@ -6,6 +6,7 @@ import javax.inject.Inject
 import org.eclipse.core.databinding.Binding
 import org.eclipse.core.databinding.DataBindingContext
 import org.eclipse.core.databinding.beans.typed.BeanProperties
+import org.eclipse.core.databinding.observable.IChangeListener
 import org.eclipse.core.databinding.observable.list.WritableList
 import org.eclipse.core.databinding.observable.value.WritableValue
 import org.eclipse.e4.ui.di.Focus
@@ -17,9 +18,11 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
+import org.eclipse.swt.widgets.Label
 import org.eclipse.swt.widgets.Text
 
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter
+import org.eclipse.jface.layout.GridDataFactory
 
 class JFaceTest {
 
@@ -29,12 +32,22 @@ class JFaceTest {
 	Text txtFirstName
 	Text txtLastName
 	Button btnTest
+	Label lblError
+	
 	DataBindingContext ctx = new DataBindingContext()
 	WritableList<Person> input
 	WritableValue<Person> value = new WritableValue()
 	ObservableListContentProvider contentProvider = new ObservableListContentProvider()		
 	Person person = new Person()
+	boolean pauseDirtyListener = false
 		
+		
+	IChangeListener listener = [
+		if (!pauseDirtyListener){
+			part.dirty = true
+		}
+		
+	]		
 		
 	@PostConstruct
 	def void createComposite(Composite parent) {
@@ -42,14 +55,18 @@ class JFaceTest {
  		person.firstName = "michael"
  		person.lastName = "tuck"
  		
+ 		lblError = new Label(parent, SWT.BORDER)
+ 		lblError.text = "Errors:"
+ 		
  		btnTest = new Button(parent, SWT.PUSH)
 		btnTest.text = "Click"
 		
 		txtFirstName = new Text(parent, SWT.BORDER)
 		txtLastName = new Text(parent, SWT.BORDER)
 
-		//lamba for this is cool
 
+
+		GridDataFactory.fillDefaults().grab(true, false).applyTo(lblError)
 		txtFirstName.layoutData = new GridData(GridData.FILL_HORIZONTAL)
 		txtLastName.layoutData = new GridData(GridData.FILL_HORIZONTAL)
 		
@@ -74,6 +91,12 @@ class JFaceTest {
 		val lastNameOb = WidgetProperties.text(SWT.Modify).observe(txtLastName)
 		val lastNameMod = BeanProperties.value("lastName").observeDetail(value)
 		val lastNameBinding = ctx.bindValue(lastNameOb, lastNameMod)
+		
+		val ob = ctx.validationStatusProviders
+		ob.forEach[ element | 
+			val b = element as Binding
+			b.target.addChangeListener(listener)
+		]
 		
 		value.value = person
 		
